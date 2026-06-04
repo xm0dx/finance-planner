@@ -28,6 +28,26 @@ Browser  ──/──▶  nginx  ──/api/──▶  Python persistence servi
 - **Backend:** a small Python service that stores and returns the plan state over a simple REST endpoint.
 - **Serving:** nginx reverse-proxies `/api/` to the backend and serves the static page on the same origin.
 
+## Run it
+
+```bash
+docker compose up --build
+# open http://localhost:8080
+```
+
+The plan is saved to a Docker volume by the backend, so it survives restarts.
+
+## Structure
+
+```text
+.
+├── app/index.html      single-page app (HTML / CSS / JavaScript)
+├── server.py           persistence API — stdlib only, atomic JSON writes
+├── nginx.conf          serves the app + proxies /api/ on one origin
+├── docker-compose.yml  backend + nginx
+└── Dockerfile          backend image
+```
+
 ## Tech
 
-Python · JavaScript · HTML · CSS · nginx
+Python · JavaScript · HTML · CSS · nginx · Docker
